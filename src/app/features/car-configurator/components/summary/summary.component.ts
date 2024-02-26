@@ -3,6 +3,7 @@ import { CurrencyPipe, JsonPipe } from '@angular/common';
 import { ModelConfig, CarModel, CarColor } from '@types';
 import { CarConfiguratorService } from '@features/configurator';
 import { ImageContainerComponent } from '@shared';
+
 @Component({
   selector: 'app-summary',
   standalone: true,
