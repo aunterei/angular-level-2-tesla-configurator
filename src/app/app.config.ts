@@ -1,10 +1,16 @@
-import { ApplicationConfig, importProvidersFrom } from '@angular/core';
+import { ApplicationConfig, ErrorHandler } from '@angular/core';
 import { provideRouter } from '@angular/router';
-
 import { routes } from './app.routes';
 import { provideHttpClient } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
+import { CarConfiguratorErrorHandler } from '@core';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideHttpClient()],
+  providers: [
+    provideRouter(routes),
+    provideHttpClient(),
+    {
+      provide: ErrorHandler,
+      useClass: CarConfiguratorErrorHandler,
+    },
+  ],
 };
