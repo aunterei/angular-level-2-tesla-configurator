@@ -1,0 +1,48 @@
+<section id="options-selection">
+  <h1>Step 2: Select your config and options</h1>
+  <label for="configSelect">Config:</label>
+  <select
+    id="configSelect"
+    [ngModel]="configuratorService.carConfigId()"
+    (ngModelChange)="configuratorService.carConfigId.set(parseInt($event))"
+  >
+    <option [value]="0">Choose...</option>
+
+    @for (
+      config of configuratorService.modelOptions().configs;
+      track config.id
+    ) {
+      <option [value]="config.id">{{ config.description }}</option>
+    }
+  </select>
+
+  @if (configuratorService.carConfigId()) {
+    <p>{{ configDescription() }}</p>
+  }
+
+  @if (configuratorService.modelOptions().towHitch) {
+    <div class="flex align-center clickable">
+      <label for="includeTow">Tow hitch?</label>
+      <input
+        name="includeTow"
+        id="includeTow"
+        type="checkbox"
+        [ngModel]="configuratorService.towHitch()"
+        (ngModelChange)="configuratorService.towHitch.set($event)"
+      />
+    </div>
+  }
+
+  @if (configuratorService.modelOptions().yoke) {
+    <div class="flex align-center clickable">
+      <label for="includeYoke">Yoke steering wheel?</label>
+      <input
+        name="includeYoke"
+        id="includeYoke"
+        type="checkbox"
+        [ngModel]="configuratorService.yokeSteering()"
+        (ngModelChange)="configuratorService.yokeSteering.set($event)"
+      />
+    </div>
+  }
+</section>

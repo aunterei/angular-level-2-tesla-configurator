@@ -1,2 +1,34 @@
 /* You can add global styles to this file, and also import other style files */
 @import "../node_modules/mini.css/dist/mini-dark.min.css";
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.clickable {
+  cursor: pointer;
+
+  & > * {
+    cursor: pointer;
+  }
+}

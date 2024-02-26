@@ -1,0 +1,87 @@
+<section id="summary">
+  <hgroup>
+    <h1>Step 3: Summary</h1>
+    <p class="subtitle">Your Tesla Cybertruck</p>
+  </hgroup>
+
+  <div id="summary-table">
+    <div class="summary-table__line">
+      <div class="summary-table__line--description">
+        <p>
+          {{ configuratorService.selectedConfig().description }}
+        </p>
+      </div>
+      <div class="summary-table__line--value">
+        <p>
+          {{ configuratorService.selectedConfig().price | currency: "USD" }}
+        </p>
+      </div>
+    </div>
+
+    <div class="summary-table__line">
+      <p>{{ configDescription() }}</p>
+    </div>
+
+    <div class="summary-table__line">
+      <div class="summary-table__line--description">
+        <p>
+          {{ selectedColor().description }}
+        </p>
+      </div>
+      <div class="summary-table__line--value">
+        <p>
+          {{ selectedColor().price | currency: "USD" }}
+        </p>
+      </div>
+    </div>
+
+    @if (configuratorService.towHitch()) {
+      <div class="summary-table__line">
+        <div class="summary-table__line--description">
+          <p>Tow Hitch Package</p>
+        </div>
+        <div class="summary-table__line--value">
+          <p>$1,000.00</p>
+        </div>
+      </div>
+    }
+
+    @if (configuratorService.yokeSteering()) {
+      <div class="summary-table__line">
+        <div class="summary-table__line--description">
+          <p>Yoke Steering Package</p>
+        </div>
+        <div class="summary-table__line--value">
+          <p>$1,000.00</p>
+        </div>
+      </div>
+    }
+
+    <hr />
+
+    <div class="summary-table__line">
+      <div class="summary-table__line--description">
+        <p>TOTAL COST</p>
+      </div>
+      <div class="summary-table__line--value">
+        <p>
+          {{ totalCost() | currency: "USD" }}
+        </p>
+      </div>
+    </div>
+
+    <hr />
+  </div>
+</section>
+
+@if (configuratorService.carImageSrc()) {
+  <section id="model-selection__image">
+    <img
+      [ngSrc]="configuratorService.carImageSrc()"
+      priority
+      height="576"
+      width="1024"
+      alt="photo of the selected car model"
+    />
+  </section>
+}
