@@ -1,20 +1,10 @@
 <section id="options-selection">
   <h1>Step 2: Select your config and options</h1>
-  <label for="configSelect">Config:</label>
-  <select
-    id="configSelect"
+  <app-select
+    [selectOptions]="configSelectOptions"
     [ngModel]="configuratorService.carConfigId()"
-    (ngModelChange)="configuratorService.carConfigId.set(parseInt($event))"
-  >
-    <option [value]="0">Choose...</option>
-
-    @for (
-      config of configuratorService.modelOptions().configs;
-      track config.id
-    ) {
-      <option [value]="config.id">{{ config.description }}</option>
-    }
-  </select>
+    (ngModelChange)="configuratorService.carConfigId.set($event)"
+  />
 
   @if (configuratorService.carConfigId()) {
     <p>{{ configDescription() }}</p>

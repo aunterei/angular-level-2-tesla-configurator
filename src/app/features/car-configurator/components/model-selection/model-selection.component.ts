@@ -1,8 +1,8 @@
 import { Component, computed, inject, Signal } from '@angular/core';
 import { AsyncPipe, JsonPipe } from '@angular/common';
-import { CarModel, CarColor } from '@types';
+import { CarModel, CarColor, SelectOptions } from '@types';
 import { CarConfiguratorService } from '@features/configurator';
-import { ImageContainerComponent } from '@shared';
+import { ImageContainerComponent, SelectComponent } from '@shared';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -10,7 +10,13 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   templateUrl: './model-selection.component.html',
   styleUrl: './model-selection.component.scss',
-  imports: [AsyncPipe, JsonPipe, ImageContainerComponent, FormsModule],
+  imports: [
+    AsyncPipe,
+    JsonPipe,
+    ImageContainerComponent,
+    FormsModule,
+    SelectComponent,
+  ],
 })
 export class ModelSelectionComponent {
   protected configuratorService: CarConfiguratorService = inject(
@@ -26,6 +32,24 @@ export class ModelSelectionComponent {
       );
     return selectedModel ? selectedModel.colors : [];
   });
+
+  protected colorSelectOptions: SelectOptions<CarColor> = {
+    id: 'colorSelect',
+    label: 'Color:',
+    options: this.carColors,
+    trackBy: (color: CarColor) => color.code,
+    optionLabelKey: 'description',
+    optionValueKey: 'code',
+  };
+
+  protected modelSelectOptions: SelectOptions<CarModel> = {
+    id: 'modelSelect',
+    label: 'Model:',
+    options: this.configuratorService.allCarModels,
+    trackBy: (model: CarModel) => model.code,
+    optionLabelKey: 'description',
+    optionValueKey: 'code',
+  };
 
   protected carModelSelectionChange(newValue: string) {
     this.configuratorService.carModelCode.set(newValue);

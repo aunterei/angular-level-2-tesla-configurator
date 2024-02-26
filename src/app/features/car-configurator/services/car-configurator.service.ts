@@ -21,7 +21,7 @@ export class CarConfiguratorService {
 
   public carModelCode: WritableSignal<string> = signal<string>('');
   public carColorCode: WritableSignal<string> = signal<string>('');
-  public carConfigId: WritableSignal<number> = signal<number>(0);
+  public carConfigId: WritableSignal<string> = signal<string>('');
   public towHitch: WritableSignal<boolean> = signal<boolean>(false);
   public yokeSteering: WritableSignal<boolean> = signal<boolean>(false);
 
@@ -35,7 +35,7 @@ export class CarConfiguratorService {
   );
 
   public isConfigSelected: Signal<boolean> = computed(
-    () => this.carConfigId() > 0,
+    () => !!this.carConfigId(),
   );
 
   public modelOptions: Signal<ModelOptions> = signal({
@@ -53,7 +53,7 @@ export class CarConfiguratorService {
 
   public selectedConfig: Signal<ModelConfig> = computed(() => {
     const selected: ModelConfig | undefined = this.modelOptions().configs.find(
-      (config: ModelConfig) => config.id === this.carConfigId(),
+      (config: ModelConfig) => config.id === parseInt(this.carConfigId()),
     );
 
     //TODO: custom error with redirection?
@@ -63,7 +63,7 @@ export class CarConfiguratorService {
   });
 
   public resetOptions(): void {
-    this.carConfigId.set(0);
+    this.carConfigId.set('');
     this.towHitch.set(false);
     this.yokeSteering.set(false);
   }
