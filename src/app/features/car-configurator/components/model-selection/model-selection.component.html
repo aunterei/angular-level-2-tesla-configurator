@@ -1,31 +1,19 @@
 <section id="model-selection__inputs">
   <h1>Step 1: Choose your Model and color</h1>
-  <label for="modelSelect">Model:</label>
-  <select
-    id="modelSelect"
+
+  <app-select
+    [selectOptions]="modelSelectOptions"
     [ngModel]="configuratorService.carModelCode()"
     (ngModelChange)="carModelSelectionChange($event)"
-  >
-    <option value="">Choose...</option>
-
-    @for (carModel of configuratorService.allCarModels(); track carModel.code) {
-      <option [value]="carModel.code">{{ carModel.description }}</option>
-    }
-  </select>
+  />
 
   @if (configuratorService.carModelCode()) {
-    <label for="colorSelect">Color:</label>
-    <select
-      id="colorSelect"
+    <app-select
+      [selectOptions]="colorSelectOptions"
+      [emptyOption]="false"
       [ngModel]="configuratorService.carColorCode()"
       (ngModelChange)="configuratorService.carColorCode.set($event)"
-    >
-      @for (carColor of carColors(); track carColor.code) {
-        <option [value]="carColor.code">
-          {{ carColor.description }}
-        </option>
-      }
-    </select>
+    />
   }
 </section>
 

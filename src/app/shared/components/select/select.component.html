@@ -1,1 +1,19 @@
-<p>select works!</p>
+<label [for]="selectOptions.id">{{ selectOptions.label }}</label>
+<select
+  [id]="selectOptions.id"
+  [ngModel]="selectedValue"
+  (ngModelChange)="selectValue($event)"
+>
+  @if (emptyOption) {
+    <option selected value="">Choose...</option>
+  }
+
+  @for (
+    option of selectOptions.options();
+    track selectOptions.trackBy(option)
+  ) {
+    <option [value]="option[selectOptions.optionValueKey]">
+      {{ option[selectOptions.optionLabelKey] }}
+    </option>
+  }
+</select>
