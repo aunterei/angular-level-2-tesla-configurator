@@ -31,6 +31,13 @@ export const routes: Routes = [
     canActivate: [summaryGuard],
   },
   {
+    path: 'error',
+    loadComponent: () =>
+      import('./core/components/error-page/error-page.component').then(
+        (c) => c.ErrorPageComponent,
+      ),
+  },
+  {
     path: '**',
     pathMatch: 'full',
     component: NotFoundComponent,

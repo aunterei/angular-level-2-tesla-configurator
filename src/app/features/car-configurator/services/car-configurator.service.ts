@@ -10,6 +10,7 @@ import {
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { CarConfiguratorApiService } from '@apis';
 import { CarModel, ModelOptions, ModelConfig } from '@types';
+import { CarConfiguratorError } from '@core';
 
 @Injectable({
   providedIn: 'root',
@@ -56,8 +57,10 @@ export class CarConfiguratorService {
       (config: ModelConfig) => config.id === parseInt(this.carConfigId()),
     );
 
-    //TODO: custom error with redirection?
-    if (!selected) throw new Error();
+    if (!selected)
+      throw new CarConfiguratorError(
+        'Error while fetching selected configuration.',
+      );
 
     return selected;
   });
