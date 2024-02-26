@@ -16,14 +16,3 @@
     />
   }
 </section>
-
-@if (configuratorService.carImageSrc()) {
-  <section id="model-selection__image">
-    <app-image-container
-      [imageSrc]="configuratorService.carImageSrc()"
-      [height]="576"
-      [width]="1024"
-      [alt]="'photo of the selected car model'"
-    />
-  </section>
-}
