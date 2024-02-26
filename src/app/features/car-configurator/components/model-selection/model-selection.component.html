@@ -31,12 +31,11 @@
 
 @if (configuratorService.carImageSrc()) {
   <section id="model-selection__image">
-    <img
-      [ngSrc]="configuratorService.carImageSrc()"
-      priority
-      height="576"
-      width="1024"
-      alt="photo of the selected car model"
+    <app-image-container
+      [imageSrc]="configuratorService.carImageSrc()"
+      [height]="576"
+      [width]="1024"
+      [alt]="'photo of the selected car model'"
     />
   </section>
 }
