@@ -1,0 +1,12 @@
+#summary {
+  #summary-table {
+    .summary-table__line {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+
+      .summary-table__line--description {
+        font-weight: bold;
+      }
+    }
+  }
+}

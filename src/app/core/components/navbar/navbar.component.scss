@@ -1,0 +1,15 @@
+#navbar {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  .navbar__item {
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &.disabled {
+      cursor: no-drop;
+    }
+  }
+}
