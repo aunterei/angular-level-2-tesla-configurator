@@ -1,21 +1,16 @@
 import { Component, computed, inject, Signal } from '@angular/core';
-import { AsyncPipe, JsonPipe, NgOptimizedImage } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AsyncPipe, JsonPipe } from '@angular/common';
 import { CarModel, CarColor } from '@types';
 import { CarConfiguratorService } from '@features/configurator';
+import { ImageContainerComponent } from '@shared';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-model-selection',
   standalone: true,
   templateUrl: './model-selection.component.html',
   styleUrl: './model-selection.component.scss',
-  imports: [
-    AsyncPipe,
-    FormsModule,
-    JsonPipe,
-    ReactiveFormsModule,
-    NgOptimizedImage,
-  ],
+  imports: [AsyncPipe, JsonPipe, ImageContainerComponent, FormsModule],
 })
 export class ModelSelectionComponent {
   protected configuratorService: CarConfiguratorService = inject(

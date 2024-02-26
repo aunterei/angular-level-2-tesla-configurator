@@ -1,11 +1,12 @@
 import { Component, computed, inject, Signal } from '@angular/core';
-import { CurrencyPipe, JsonPipe, NgOptimizedImage } from '@angular/common';
+import { CurrencyPipe, JsonPipe } from '@angular/common';
 import { ModelConfig, CarModel, CarColor } from '@types';
 import { CarConfiguratorService } from '@features/configurator';
+import { ImageContainerComponent } from '@shared';
 @Component({
   selector: 'app-summary',
   standalone: true,
-  imports: [CurrencyPipe, JsonPipe, NgOptimizedImage],
+  imports: [CurrencyPipe, JsonPipe, ImageContainerComponent],
   templateUrl: './summary.component.html',
   styleUrl: './summary.component.scss',
 })

@@ -1,0 +1,14 @@
+<div
+  class="image-container"
+  [ngStyle]="{ 'height.px': height, 'width.px': width }"
+  [class.loading]="imageLoading"
+>
+  <img
+    [ngSrc]="imageSrc"
+    [priority]="priority"
+    [height]="height"
+    [width]="width"
+    [alt]="alt"
+    (load)="imageLoading = false"
+  />
+</div>
