@@ -65,6 +65,19 @@ export class CarConfiguratorService {
     return selected;
   });
 
+  public selectedModel: Signal<CarModel> = computed(() => {
+    const selected: CarModel | undefined = this.allCarModels().find(
+      (model: CarModel) => model.code === this.carModelCode(),
+    );
+
+    if (!selected)
+      throw new CarConfiguratorError(
+        'Error while fetching selected car model.',
+      );
+
+    return selected;
+  });
+
   public resetOptions(): void {
     this.carConfigId.set('');
     this.towHitch.set(false);
