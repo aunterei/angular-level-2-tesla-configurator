@@ -1,11 +1,18 @@
 <nav id="navbar">
-  <a id="step1" routerLink="model-selection" class="navbar__item">Step 1</a>
+  <a
+    id="step1"
+    routerLink="model-selection"
+    routerLinkActive="active-link"
+    class="navbar__item"
+    >Step 1</a
+  >
   <a
     id="step2"
     [class.disabled]="!configuratorService.isModelSelected()"
     [routerLink]="
       configuratorService.isModelSelected() ? 'options-selection' : null
     "
+    routerLinkActive="active-link"
     class="navbar__item"
   >
     Step 2
@@ -13,6 +20,7 @@
   <a
     [class.disabled]="!configuratorService.isConfigSelected()"
     [routerLink]="configuratorService.isConfigSelected() ? 'summary' : null"
+    routerLinkActive="active-link"
     id="step3"
     routerLink="summary"
     class="navbar__item"
