@@ -7,7 +7,7 @@
   />
 
   @if (configuratorService.carConfigId()) {
-    <p>{{ configDescription() }}</p>
+    <p data-cy="config-description">{{ configDescription() }}</p>
   }
 
   @if (configuratorService.modelOptions().towHitch) {

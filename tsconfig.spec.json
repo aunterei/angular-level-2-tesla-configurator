@@ -2,13 +2,16 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    "baseUrl": "./",
     "outDir": "./out-tsc/spec",
-    "types": [
-      "jasmine"
-    ]
+    "types": ["jasmine"],
+    "paths": {
+      "@core": ["src/app/core"],
+      "@shared": ["src/app/shared"],
+      "@types": ["src/app/types"],
+      "@apis": ["src/app/api"],
+      "@features/configurator": ["src/app/features/car-configurator"]
+    }
   },
-  "include": [
-    "src/**/*.spec.ts",
-    "src/**/*.d.ts"
-  ]
+  "include": ["src/**/*.spec.ts", "src/**/*.d.ts"]
 }
