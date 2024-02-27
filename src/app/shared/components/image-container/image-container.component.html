@@ -2,6 +2,7 @@
   class="image-container"
   [ngStyle]="{ 'height.px': height, 'width.px': width }"
   [class.loading]="imageLoading"
+  data-cy="img-container"
 >
   <img
     [ngSrc]="imageSrc"
