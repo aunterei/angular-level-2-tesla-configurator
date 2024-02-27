@@ -1,0 +1,23 @@
+.loading {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    background-color: white;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    animation: 0.5s linear 0s infinite alternate loading-opacity;
+  }
+}
+
+@keyframes loading-opacity {
+  from {
+    opacity: 25%;
+  }
+
+  to {
+    opacity: 50%;
+  }
+}

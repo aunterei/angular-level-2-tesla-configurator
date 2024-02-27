@@ -1,11 +1,14 @@
 import { Component, computed, inject, Signal } from '@angular/core';
-import { CurrencyPipe, JsonPipe, NgOptimizedImage } from '@angular/common';
-import { ModelConfig, CarModel, CarColor } from '@types';
+import { CurrencyPipe, JsonPipe } from '@angular/common';
+import { CarColor, CarModel, ModelConfig } from '@types';
 import { CarConfiguratorService } from '@features/configurator';
+import { ImageContainerComponent } from '@shared';
+import { CarConfiguratorError } from '@core';
+
 @Component({
   selector: 'app-summary',
   standalone: true,
-  imports: [CurrencyPipe, JsonPipe, NgOptimizedImage],
+  imports: [CurrencyPipe, JsonPipe, ImageContainerComponent],
   templateUrl: './summary.component.html',
   styleUrl: './summary.component.scss',
 })
@@ -29,7 +32,7 @@ export class SummaryComponent {
           model.code === this.configuratorService.carModelCode(),
       );
     if (!selected) {
-      throw new Error();
+      throw new CarConfiguratorError('Error while fetching selected model.');
     }
 
     return selected;
@@ -42,7 +45,7 @@ export class SummaryComponent {
     );
 
     if (!selected) {
-      throw new Error();
+      throw new CarConfiguratorError('Error while fetching selected color.');
     }
 
     return selected;

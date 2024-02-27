@@ -1,8 +1,9 @@
 import { Component, computed, inject, Signal } from '@angular/core';
-import { AsyncPipe, JsonPipe, NgOptimizedImage } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CarModel, CarColor } from '@types';
+import { AsyncPipe, JsonPipe } from '@angular/common';
+import { CarModel, CarColor, SelectOptions } from '@types';
 import { CarConfiguratorService } from '@features/configurator';
+import { ImageContainerComponent, SelectComponent } from '@shared';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-model-selection',
@@ -11,10 +12,10 @@ import { CarConfiguratorService } from '@features/configurator';
   styleUrl: './model-selection.component.scss',
   imports: [
     AsyncPipe,
-    FormsModule,
     JsonPipe,
-    ReactiveFormsModule,
-    NgOptimizedImage,
+    ImageContainerComponent,
+    FormsModule,
+    SelectComponent,
   ],
 })
 export class ModelSelectionComponent {
@@ -31,6 +32,24 @@ export class ModelSelectionComponent {
       );
     return selectedModel ? selectedModel.colors : [];
   });
+
+  protected colorSelectOptions: SelectOptions<CarColor> = {
+    id: 'colorSelect',
+    label: 'Color:',
+    options: this.carColors,
+    trackBy: (color: CarColor) => color.code,
+    optionLabelKey: 'description',
+    optionValueKey: 'code',
+  };
+
+  protected modelSelectOptions: SelectOptions<CarModel> = {
+    id: 'modelSelect',
+    label: 'Model:',
+    options: this.configuratorService.allCarModels,
+    trackBy: (model: CarModel) => model.code,
+    optionLabelKey: 'description',
+    optionValueKey: 'code',
+  };
 
   protected carModelSelectionChange(newValue: string) {
     this.configuratorService.carModelCode.set(newValue);

@@ -10,6 +10,7 @@ import {
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { CarConfiguratorApiService } from '@apis';
 import { CarModel, ModelOptions, ModelConfig } from '@types';
+import { CarConfiguratorError } from '@core';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +22,7 @@ export class CarConfiguratorService {
 
   public carModelCode: WritableSignal<string> = signal<string>('');
   public carColorCode: WritableSignal<string> = signal<string>('');
-  public carConfigId: WritableSignal<number> = signal<number>(0);
+  public carConfigId: WritableSignal<string> = signal<string>('');
   public towHitch: WritableSignal<boolean> = signal<boolean>(false);
   public yokeSteering: WritableSignal<boolean> = signal<boolean>(false);
 
@@ -35,7 +36,7 @@ export class CarConfiguratorService {
   );
 
   public isConfigSelected: Signal<boolean> = computed(
-    () => this.carConfigId() > 0,
+    () => !!this.carConfigId(),
   );
 
   public modelOptions: Signal<ModelOptions> = signal({
@@ -53,17 +54,32 @@ export class CarConfiguratorService {
 
   public selectedConfig: Signal<ModelConfig> = computed(() => {
     const selected: ModelConfig | undefined = this.modelOptions().configs.find(
-      (config: ModelConfig) => config.id === this.carConfigId(),
+      (config: ModelConfig) => config.id === parseInt(this.carConfigId()),
     );
 
-    //TODO: custom error with redirection?
-    if (!selected) throw new Error();
+    if (!selected)
+      throw new CarConfiguratorError(
+        'Error while fetching selected configuration.',
+      );
+
+    return selected;
+  });
+
+  public selectedModel: Signal<CarModel> = computed(() => {
+    const selected: CarModel | undefined = this.allCarModels().find(
+      (model: CarModel) => model.code === this.carModelCode(),
+    );
+
+    if (!selected)
+      throw new CarConfiguratorError(
+        'Error while fetching selected car model.',
+      );
 
     return selected;
   });
 
   public resetOptions(): void {
-    this.carConfigId.set(0);
+    this.carConfigId.set('');
     this.towHitch.set(false);
     this.yokeSteering.set(false);
   }

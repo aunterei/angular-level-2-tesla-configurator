@@ -2,24 +2,19 @@ import { Component, computed, inject, Signal } from '@angular/core';
 import { CarConfiguratorService } from '@features/configurator';
 import { AsyncPipe, CurrencyPipe, JsonPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ModelConfig } from '@types';
-import { CarConfiguratorApiService } from '@apis';
+import { ModelConfig, SelectOptions } from '@types';
+import { SelectComponent } from '@shared';
 
 @Component({
   selector: 'app-options-selection',
   standalone: true,
-  imports: [JsonPipe, AsyncPipe, FormsModule],
+  imports: [JsonPipe, AsyncPipe, FormsModule, SelectComponent],
   providers: [CurrencyPipe],
   templateUrl: './options-selection.component.html',
   styleUrl: './options-selection.component.scss',
 })
 export class OptionsSelectionComponent {
   private currencyPipe: CurrencyPipe = inject(CurrencyPipe);
-  private carConfiguratorApi: CarConfiguratorApiService = inject(
-    CarConfiguratorApiService,
-  );
-
-  protected readonly parseInt = parseInt;
 
   protected configuratorService: CarConfiguratorService = inject(
     CarConfiguratorService,
@@ -32,14 +27,12 @@ export class OptionsSelectionComponent {
     return `Range: ${selectedConfig.range} - Max speed: ${selectedConfig.speed} - Cost: ${this.currencyPipe.transform(selectedConfig.price, 'USD')}`;
   });
 
-  // constructor() {
-  //   this.configuratorService.modelOptions = toSignal(
-  //     this.carConfiguratorApi.getModelOptions(
-  //       this.configuratorService.carModelCode(),
-  //     ),
-  //     {
-  //       initialValue: { configs: [], towHitch: false, yoke: false },
-  //     },
-  //   );
-  // }
+  protected configSelectOptions: SelectOptions<ModelConfig> = {
+    id: 'configSelect',
+    label: 'Config:',
+    options: computed(() => this.configuratorService.modelOptions().configs),
+    trackBy: (config: ModelConfig) => config.id,
+    optionValueKey: 'id',
+    optionLabelKey: 'description',
+  };
 }

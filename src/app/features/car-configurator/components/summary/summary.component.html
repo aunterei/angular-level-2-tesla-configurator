@@ -1,42 +1,44 @@
 <section id="summary">
   <hgroup>
     <h1>Step 3: Summary</h1>
-    <p class="subtitle">Your Tesla Cybertruck</p>
+    <p class="subtitle" data-cy="summary-model-description">
+      Your Tesla {{ configuratorService.selectedModel().description }}
+    </p>
   </hgroup>
 
   <div id="summary-table">
     <div class="summary-table__line">
       <div class="summary-table__line--description">
-        <p>
+        <p data-cy="summary-selected-config-description">
           {{ configuratorService.selectedConfig().description }}
         </p>
       </div>
       <div class="summary-table__line--value">
-        <p>
+        <p data-cy="summary-selected-config-price">
           {{ configuratorService.selectedConfig().price | currency: "USD" }}
         </p>
       </div>
     </div>
 
-    <div class="summary-table__line">
-      <p>{{ configDescription() }}</p>
+    <div class="summary-table__line" data-cy="">
+      <p data-cy="summary-config-description">{{ configDescription() }}</p>
     </div>
 
     <div class="summary-table__line">
       <div class="summary-table__line--description">
-        <p>
+        <p data-cy="summary-selected-color-description">
           {{ selectedColor().description }}
         </p>
       </div>
       <div class="summary-table__line--value">
-        <p>
+        <p data-cy="summary-selected-color-price">
           {{ selectedColor().price | currency: "USD" }}
         </p>
       </div>
     </div>
 
     @if (configuratorService.towHitch()) {
-      <div class="summary-table__line">
+      <div class="summary-table__line" data-cy="summary-tow">
         <div class="summary-table__line--description">
           <p>Tow Hitch Package</p>
         </div>
@@ -47,7 +49,7 @@
     }
 
     @if (configuratorService.yokeSteering()) {
-      <div class="summary-table__line">
+      <div class="summary-table__line" data-cy="summary-yoke">
         <div class="summary-table__line--description">
           <p>Yoke Steering Package</p>
         </div>
@@ -64,7 +66,7 @@
         <p>TOTAL COST</p>
       </div>
       <div class="summary-table__line--value">
-        <p>
+        <p data-cy="summary-total">
           {{ totalCost() | currency: "USD" }}
         </p>
       </div>
@@ -73,15 +75,3 @@
     <hr />
   </div>
 </section>
-
-@if (configuratorService.carImageSrc()) {
-  <section id="model-selection__image">
-    <img
-      [ngSrc]="configuratorService.carImageSrc()"
-      priority
-      height="576"
-      width="1024"
-      alt="photo of the selected car model"
-    />
-  </section>
-}
