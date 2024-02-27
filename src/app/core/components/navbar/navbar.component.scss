@@ -11,5 +11,9 @@
     &.disabled {
       cursor: no-drop;
     }
+
+    &.active-link {
+      background-color: var(--nav-hover-back-color);
+    }
   }
 }
